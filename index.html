@@ -8,10 +8,10 @@
           body {
               font-family: cursive;
               text-align: center;
-              margin-top: 14%;
+              margin-top: 9%;
           }
           p{
-              font-size: 17px;
+              font-size: 1.5em;
               text-align: justify;
               display: inline-block;
               width: 75%;
@@ -22,14 +22,73 @@
           .title{
               color: mediumvioletred;
           }
+          .countdown{
+              width: 75%;
+              display: inline-block;
+              margin: 0px;
+              padding: 0px;
+          }
+          ul{
+              padding: 0px;
+          }
+          li {
+              display: inline-block;
+              font-size: 1.5em;
+              list-style: none;
+              padding: 1em;
+              text-transform: uppercase;
+          }
+          li span {
+              display: block;
+              font-size: 3.5rem;
+           }
+          @media all and (max-width: 1024px) {
+              li {
+                display: block;
+              }
+          }
       </style>
       <h1 class="title">Studio One</h1>
       <h2>Coming Soon ...</h2>
+      <div class="countdown">
+        <ul>
+            <li><span class="days">00</span>days</li>
+            <li><span class="hours">00</span>Hours</li>
+            <li><span class="minutes">00</span>Minutes</li>
+            <li><span class="seconds">00</span>Seconds</li>
+        </ul>
+      </div>
       <p><span class="title">Studio One</span> team started in the field of architectural design in May 2023. 
              This team was established with the aim of improving the quality of architecture in people's living or working environment.
              Our studio is active in the fields of interior design, facade design, landscape design, and etc. 
              The member of this studio consists of four architectural engineers with master's and doctorate degrees. The idea of founding this studio, started in the ateliers of Shiraz University(where we studied for our master's degree in architecture), alongside university projects with an equal value beside our friendship, coming with a great deal of valuable academic experiences and the professional work of each member.
-          The <span class="title">Studio One</span> team believes that there is an idea that can bring you closer to embracing your dreams, and we will do our best to make that come true.
+             The <span class="title">Studio One</span> team believes that there is an idea that can bring you closer to embracing your dreams, and we will do our best to make that come true.
       </p>
+      <script>
+            let day = document.querySelector('.days');
+            let hour = document.querySelector('.hours');
+            let minute = document.querySelector('.minutes');
+            let second = document.querySelector('.seconds');
+            function setCountdown() {
+                let countdownDate = new Date('Feb 25, 2024 19:00:00').getTime();
+                let updateCount = setInterval(function(){
+                let todayDate = new Date().getTime();
+                let distance = countdownDate - todayDate;
+                let days = Math.floor(distance / (1000 * 60 * 60 *24));
+                let hours = Math.floor(distance % (1000 * 60 * 60 *24) / (1000 * 60 *60));
+                let minutes = Math.floor(distance % (1000 * 60 * 60 ) / (1000 * 60));
+                let seconds = Math.floor(distance % (1000 * 60) / 1000);
+                day.textContent = String(days).padStart(2, '0');
+                hour.textContent = String(hours).padStart(2, '0');
+                minute.textContent = String(minutes).padStart(2, '0');
+                second.textContent = String(seconds).padStart(2, '0');
+                if(distance < 0){
+                    clearInterval(updateCount);
+                    document.querySelector(".container").innerHTML = '<h1>EXPIRED</h1>'
+                }
+                }, 1000)
+            }
+            setCountdown()
+      </script>
   </body>
 </html>
